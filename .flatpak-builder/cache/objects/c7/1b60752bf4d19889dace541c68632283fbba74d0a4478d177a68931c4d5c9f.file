@@ -1,0 +1,5 @@
+[Runtime]
+name=online.sashin.japanesewordtransformer.Devel.Debug
+
+[ExtensionOf]
+ref=app/online.sashin.japanesewordtransformer.Devel/x86_64/master

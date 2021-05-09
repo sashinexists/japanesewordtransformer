@@ -1,0 +1,49 @@
+{
+  "id" : "online.sashin.japanesewordtransformer.Devel",
+  "runtime" : "org.gnome.Platform",
+  "runtime-version" : "40",
+  "runtime-commit" : "3eaf98a3f031def1503dbf8c62e6d8741c6321422c6f0a39800e2a043f2108fc",
+  "sdk" : "org.gnome.Sdk",
+  "sdk-commit" : "c218374a5f26ddce43ac0fcdc4b83b9cef6488f80f3f2447f8f31bf3797c8536",
+  "build-options" : {
+    "env" : {
+      "RUST_BACKTRACE" : "1"
+    },
+    "build-args" : [
+      "--share=network"
+    ],
+    "test-args" : [
+      "--socket=x11",
+      "--share=network"
+    ],
+    "append-path" : "/usr/lib/sdk/rust-stable/bin"
+  },
+  "command" : "japanese-word-transformer",
+  "modules" : [
+    {
+      "name" : "japanese-word-transformer",
+      "buildsystem" : "meson",
+      "config-opts" : [
+        "-Dprofile=development"
+      ],
+      "run-tests" : true,
+      "sources" : [
+        {
+          "path" : "../",
+          "type" : "dir"
+        }
+      ]
+    }
+  ],
+  "sdk-extensions" : [
+    "org.freedesktop.Sdk.Extension.rust-stable"
+  ],
+  "finish-args" : [
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--talk-name=org.a11y.Bus",
+    "--env=RUST_LOG=japanese-word-transformer=debug",
+    "--env=G_MESSAGES_DEBUG=none"
+  ]
+}

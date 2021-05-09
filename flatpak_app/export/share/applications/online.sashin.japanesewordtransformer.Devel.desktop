@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Japanese word transformer
+Comment=Write a GTK + Rust application
+Type=Application
+Exec=japanese-word-transformer
+Terminal=false
+Categories=GNOME;GTK;
+Keywords=Gnome;GTK;
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+Icon=online.sashin.japanesewordtransformer.Devel
+StartupNotify=true

@@ -1,30 +1,37 @@
-mod application;
-#[rustfmt::skip]
-mod config;
-mod window;
-
-use application::ExampleApplication;
-use config::{GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE};
-use gettextrs::*;
-use gtk::gio;
+use gtk::prelude::*;
+use gtk::{Application, ApplicationWindow, Button};
 
 fn main() {
-    // Initialize logger, debug is carried out via debug!, info!, and warn!.
-    pretty_env_logger::init();
+    // Create a new application
+    let app = Application::new(Some("online.sashin.japanesewordtransformer"), Default::default());
+    app.connect_activate(build_ui);
 
-    // Prepare i18n
-    setlocale(LocaleCategory::LcAll, "");
-    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).expect("Unable to bind the text domain");
-    textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain");
-
-    gtk::glib::set_application_name("Japanese word transformer");
-    gtk::glib::set_prgname(Some("japanese-word-transformer"));
-
-    gtk::init().expect("Unable to start GTK4");
-
-    let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
-    gio::resources_register(&res);
-
-    let app = ExampleApplication::new();
+    // Run the application
     app.run();
+}
+
+fn build_ui(application: &Application) {
+    // Create a window
+    let window = ApplicationWindow::new(application);
+
+    // Set the window title
+    window.set_title(Some("japanese Word Transformer"));
+
+    let button = Button::with_label("Translate \"Hello World!\"");
+
+    // Set the button margins
+    button.set_margin_top(12);
+    button.set_margin_bottom(12);
+    button.set_margin_start(12);
+    button.set_margin_end(12);
+
+    // Connect callback
+    button.connect_clicked(move |button| {
+        // Set the label to "Hello World!" after the button has been clicked on
+        button.set_label("こんにちは世界!");
+    });
+
+    // Add button
+    window.set_child(Some(&button));
+    window.present();
 }
